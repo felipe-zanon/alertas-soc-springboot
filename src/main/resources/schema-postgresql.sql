@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS alerta (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    status VARCHAR(20) NOT NULL
+);

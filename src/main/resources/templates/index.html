@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema SOC</title>
+    
+    <style>
+        /* Estilização simples para deixar o menu com cara de sistema */
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f9; 
+            color: #333; 
+            display: flex; 
+            justify-content: center; 
+            margin-top: 50px; 
+        }
+        .menu-box { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            text-align: center;
+            width: 400px;
+        }
+        h1 { 
+            color: #d9534f; /* Um vermelho/vinho que remete a alertas de segurança */
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 15px; 
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        li { 
+            margin: 20px 0; 
+        }
+        a { 
+            text-decoration: none; 
+            background-color: #333; 
+            color: white; 
+            padding: 12px 20px; 
+            border-radius: 5px; 
+            display: block; 
+            font-weight: bold;
+        }
+        a:hover { 
+            background-color: #555; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-box">
+        <h1>Central SOC</h1>
+        <p>Selecione a operação desejada:</p>
+        
+        <ul>
+            <li><a th:href="@{/alerta}">Registrar Novo Alerta</a></li>
+            <li><a th:href="@{/listar/alertas}">Listar Alertas</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

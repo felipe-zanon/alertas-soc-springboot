@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edição de Alertas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    
+    <h2>Atualizar Alerta de Segurança</h2>
+
+    <form action="#" th:action="@{'/alertas/' + ${id} + '/atualizar'}" method="post" th:object="${alerta}">
+        
+        <input type="hidden" th:field="*{id}">
+        
+        Descrição: <input type="text" th:field="*{descricao}"><br><br>
+        
+        Status: 
+        <select th:field="*{status}">
+            <option th:each="statusOpt : ${T(com.felipe.soc.model.StatusAlerta).values()}"
+                    th:value="${statusOpt}"
+                    th:text="${statusOpt}">
+            </option>
+        </select><br><br>
+        
+        <input type="submit" value="Atualizar Alerta">
+
+    </form>
+
+    <br>
+    <a th:href="@{/listar/alertas}">Voltar para a Lista</a>
+
+</body>
+</html>
