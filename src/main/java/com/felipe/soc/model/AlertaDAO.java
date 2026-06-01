@@ -15,16 +15,17 @@ import jakarta.annotation.PostConstruct;
 @Repository //Indica que a classe vai ser usada para se comunicar com o DB
 public class AlertaDAO {
 
-    @Autowired //Injeção de dependencia
+    @Autowired //Injeção de dependencia (Conexão com o PostgreSQL)
     DataSource dataSource; //conexão física com o DB
     
-    JdbcTemplate jdbc;
+    JdbcTemplate jdbc; //Ferramenta do Spring responsável por simplificar as queries
 
-    @PostConstruct
+    @PostConstruct //Roda o método abaixo automaticamente assim que o spring cria a classe
     private void initialize(){
         jdbc = new JdbcTemplate(dataSource);
     }
 
+    //Create
     public void inserirChamado(Alerta ale){
         String sql = "INSERT INTO Alerta(descricao, status) VALUES(?,?)";
         Object obj[] = new Object[2];
@@ -33,24 +34,37 @@ public class AlertaDAO {
         jdbc.update(sql, obj);
     }
 
+
+    //Update
     public void atualizarChamado(int id, Alerta aler){
         String sql = "UPDATE alerta SET descricao = ?, status = ? where id = ?";
         Object obj[] = new Object[3];
         obj[0] = aler.getDescricao();
-        obj[1] = aler.getStatus().name();
-        obj[2] = id;
-        jdbc.update(sql, obj);
+        obj[1] = aler.getStatus().name(); //Extrai a enum em formato String
+        obj[2] = id; // id do where para atualizar apenas o registro correto
+        jdbc.update(sql, obj); //Dispara a query e o vetor de dados no DB
     }
 
+    //Read
     public Alerta obterChamado(int id){
-        String sql = "SELECT * FROM alerta where id = ?";
+        String sql = "SELECT * FROM alerta where id = ?"; //Busca um alerta especifico
+
+        //queryforMap executa o SELECT e retorna uma linha do banco como um Map(chave, valor)
+        //.converter transforma o Map em um objeto do tipo Alerta
         return Alerta.converter((Map<String,Object>) jdbc.queryForMap(sql,id));
     }
 
+    //Read
     public List<Alerta> obterTodosChamados(){
         String sql = "SELECT * FROM alerta";
+
+        //Cada linha da tabela vira um Map dentro da Lista
         List<Map<String,Object>> listaChamados = jdbc.queryForList(sql);
+        //Cria uma lista vazia do tipo Alerta
         ArrayList<Alerta> aux = new ArrayList<>();
+
+        //Varre a lista que veio do DB, converte cada linha em um obj do tipo ALerta e
+        // preenche o ArrayList aux
         for(Map<String, Object> chamado : listaChamados){
             aux.add(Alerta.converter(chamado));
         }
@@ -58,9 +72,5 @@ public class AlertaDAO {
         return aux;
     }
 
-    public void deletarChamado(int id, Alerta al){
-        String sql = "DELETE * FROM alertA WHERE id = ?";
-        
-    }
 
 }
