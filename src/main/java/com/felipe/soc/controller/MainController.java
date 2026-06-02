@@ -66,6 +66,13 @@ public class MainController {
         return "redirect:/listar/alertas";
     }
 
+    @PostMapping("/alertas/{id}/deletar")
+    public String deletarChamado(Model model, @PathVariable int id){
+        AlertaService as = context.getBean(AlertaService.class);
+        as.deleterChamado(id);
+        return "redirect:/listar/alertas";
+    }
+
 
 
 

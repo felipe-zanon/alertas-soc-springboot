@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://127.0.0.1:5432/soc_db
-    username: postgres
-    password: root
+    url: jdbc:postgresql://dpg-d8f0u6ugvqtc738p8ed0-a.oregon-postgres.render.com:5432/chamados_ctlc
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driverClassName: org.postgresql.Driver
 
   jpa:

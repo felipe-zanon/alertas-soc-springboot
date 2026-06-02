@@ -26,4 +26,8 @@ public class AlertaService {
     public void atualizarChamado(int id, Alerta a){
         adao.atualizarChamado(id, a);
     }
+
+    public void deleterChamado(int id){
+        adao.deletarAlerta(id);
+    }
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -70,6 +71,25 @@ public class AlertaDAO {
         }
 
         return aux;
+    }
+
+    //Delete
+    public void deletarAlerta(int id){
+        try {
+
+            //Busca o chamado no banco antes de disparar a exceção
+        Alerta deletar = obterChamado(id);
+
+        String sql = "DELETE FROM alerta where id = ?";
+        jdbc.update(sql, id);
+
+        System.out.println("Alerta " + deletar.getDescricao() + " foi deletado!");
+        } catch (EmptyResultDataAccessException e) {
+            //Mensagem amigável caso o obterChamado nao encontre o ID
+            System.out.println("ERRO: Alerta " + id + " NÃO existe!");
+        }
+      
+
     }
 
 
